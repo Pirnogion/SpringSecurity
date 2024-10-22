@@ -27,6 +27,8 @@ public class WebSecurityConfig {
                         auth -> auth
                                 .requestMatchers(antMatcher("/register/**")).permitAll()
                                 .requestMatchers(antMatcher("/index")).permitAll()
+                                .requestMatchers(antMatcher("/about")).permitAll()
+                                .requestMatchers(antMatcher("/error")).permitAll()
                                 .requestMatchers(antMatcher("/users")).hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated()
@@ -34,7 +36,7 @@ public class WebSecurityConfig {
                         (form) -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/users")
+                                .defaultSuccessUrl("/index")
                                 .permitAll()
                 ).logout(
                         (logout) -> logout

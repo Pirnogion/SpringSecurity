@@ -32,7 +32,7 @@ public class DefaultUserService implements UserService {
 
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByName("ROLE_READ_ONLY");
         if (role == null) {
             role = checkRoleExist();
         }
@@ -57,6 +57,7 @@ public class DefaultUserService implements UserService {
     private UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
         String[] str = user.getName().split(" ");
+        userDto.setId(user.getId());
         userDto.setFirstName(str[0]);
         userDto.setLastName(str[1]);
         userDto.setEmail(user.getEmail());
@@ -66,7 +67,7 @@ public class DefaultUserService implements UserService {
 
     private Role checkRoleExist() {
         Role role = new Role();
-        role.setName("ROLE_ADMIN");
+        role.setName("ROLE_READ_ONLY");
 
         return roleRepository.save(role);
     }

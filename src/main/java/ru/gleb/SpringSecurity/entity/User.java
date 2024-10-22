@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.gleb.SpringSecurity.model.Roles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,4 +38,8 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") }
     )
     private List<Role> roles = new ArrayList<>();
+
+    public boolean hasRole(Roles role) {
+        return roles.stream().anyMatch(r -> r.getName().equals(role.name()));
+    }
 }

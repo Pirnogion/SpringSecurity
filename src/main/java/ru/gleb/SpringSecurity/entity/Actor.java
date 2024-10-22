@@ -6,28 +6,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "actors")
+public class Actor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "faculty")
-    private String faculty;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 
-    @Column(name = "age")
-    private Integer age;
+    @ManyToMany(mappedBy = "actors", fetch = FetchType.EAGER)
+    private List<Movie> movies = new ArrayList<>();
 }
